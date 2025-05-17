@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوت الحماية الذكية - Scam Detector</title>
+    <style>
+        :root {
+            --primary: #5865F2;
+            --secondary: #2C2F33;
+            --accent: #00ff88;
+            --background: #18191c;
+            --danger: #ff4d4d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .glass-panel {
+            background: rgba(44, 47, 51, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            margin: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary) 0%, #404EED 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .glow-button {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            margin: 1rem 0;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+        }
+
+        .glow-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.6);
+        }
+
+        .control-panel {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, #2C2F33, #23272A);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--accent);
+            position: relative;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent), transparent);
+            z-index: -1;
+            border-radius: 15px;
+        }
+
+        .live-stats {
+            font-size: 2.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .online-status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 1.5s infinite;
+        }
+
+        .banned-words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .banned-word {
+            background: rgba(255, 77, 77, 0.15);
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--danger);
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .banned-word::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,77,77,0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .banned-word:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(255,77,77,0.3);
+        }
+
+        .banned-word:hover::before {
+            left: 100%;
+        }
+
+        .danger-title {
+            color: var(--danger);
+            text-shadow: 0 0 10px rgba(255,77,77,0.3);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="hero-section">
+        <div class="glass-panel">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">🛡️ بوت كاشف الاحتيال المتقدم</h1>
+            <p style="font-size: 1.2rem; opacity: 0.9;">الحماية الذكية لسيرفرات الديسكورد ضد التهديدات الإلكترونية</p>
+            
+            <button 
+                class="glow-button"
+                onclick="window.location.href='https://discord.com/api/oauth2/authorize?client_id=1373208679519748187&permissions=8&scope=bot%20applications.commands'">
+                أضف البوت إلى السيرفر
+            </button>
+
+            <div class="online-status" style="margin-left: 1rem;"></div>
+            <span>البوت متصل الآن</span>
+        </div>
+    </div>
+
+    <div class="glass-panel" id="controlPanel">
+        <h2 style="text-align: center; margin-bottom: 2rem;">🚀 لوحة التحكم الإدارية</h2>
+        
+        <div class="control-panel">
+            <div class="stat-card">
+                <h3>📊 الإحصائيات الحية</h3>
+                <div class="live-stats" id="protectedServers">+500</div>
+                <p>سيرفر محمي</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>🔍 النشاط المباشر</h3>
+                <div class="live-stats" id="blockedLinks">+10K</div>
+                <p>رابط تم حظره</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>⚙️ الإعدادات السريعة</h3>
+                <button class="glow-button" style="font-size: 1rem; padding: 0.8rem 1.5rem; margin: 0.5rem;">
+                    تغيير الإعدادات
+                </button>
+                <button class="glow-button" style="font-size: 1rem; padding: 0.8rem 1.5rem; margin: 0.5rem;">
+                    عرض السجلات
+                </button>
+            </div>
+        </div>
+
+        <div class="stat-card" style="margin-top: 2rem;">
+            <h3 class="danger-title">⛔ الكلمات/الروابط المحظورة</h3>
+            <div class="banned-words-grid">
+                <div class="banned-word">discord.gift</div>
+                <div class="banned-word">free-nitro</div>
+                <div class="banned-word">steamgift</div>
+                <div class="banned-word">discord-app</div>
+                <div class="banned-word">nitro-free</div>
+                <div class="banned-word">steamnitro</div>
+                <div class="banned-word">discordgift</div>
+                <div class="banned-word">nitro-discord</div>
+                <div class="banned-word">steam-gift</div>
+                <div class="banned-word">discord-nitro</div>
+                <div class="banned-word">nitrogift</div>
+                <div class="banned-word">steam-nitro</div>
+                <div class="banned-word">free-discord</div>
+                <div class="banned-word">nitro-steam</div>
+                <div class="banned-word">dlscord\</div>
+                <div class="banned-word">discordapp\</div>
+                <div class="banned-word">steam\gift</div>
+                <div class="banned-word">discord\nitro</div>
+                <div class="banned-word">nitro\free</div>
+                <div class="banned-word">dlscordapp\</div>
+                <div class="banned-word">steamcommunity\</div>
+                <div class="banned-word">discord\app</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // التحقق من إضافة البوت وعرض لوحة التحكم
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.has('added')) {
+            document.getElementById('controlPanel').style.display = 'grid';
+            // تأثير ظهور اللوحة
+            setTimeout(() => {
+                document.getElementById('controlPanel').style.opacity = '1';
+                document.getElementById('controlPanel').style.transform = 'translateY(0)';
+            }, 100);
+        }
+
+        // محاكاة الإحصائيات الحية
+        setInterval(() => {
+            document.getElementById('protectedServers').textContent = `+${Math.floor(Math.random() * 100 + 500}`;
+            document.getElementById('blockedLinks').textContent = `+${Math.floor(Math.random() * 1000 + 10000}`;
+        }, 3000);
+    </script>
+</body>
+</html>
